@@ -13,4 +13,5 @@ class CustomerService(private val customerRespository: CustomerRespository): ICu
     override fun findById(id: Long): Customer = this.customerRespository.findById(id).orElseThrow{
         throw BussinesException("id: $id não encontrado")
     }
+
 }

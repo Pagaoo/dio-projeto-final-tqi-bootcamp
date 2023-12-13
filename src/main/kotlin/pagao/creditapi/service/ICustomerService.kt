@@ -5,4 +5,5 @@ import pagao.creditapi.entity.Customer
 interface ICustomerService {
     fun saveCustomer(customer: Customer): Customer
     fun findById(id: Long): Customer
+
 }
