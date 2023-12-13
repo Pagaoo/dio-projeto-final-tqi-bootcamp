@@ -6,4 +6,5 @@ interface ICustomerService {
     fun saveCustomer(customer: Customer): Customer
     fun findById(id: Long): Customer
 
+    fun deleteCustomer(id: Long)
 }

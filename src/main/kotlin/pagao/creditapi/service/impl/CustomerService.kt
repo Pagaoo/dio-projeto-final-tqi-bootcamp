@@ -14,4 +14,9 @@ class CustomerService(private val customerRespository: CustomerRespository): ICu
         throw BussinesException("id: $id não encontrado")
     }
 
+    override fun deleteCustomer(id: Long) {
+        val customer: Customer = this.findById(id)
+        this.customerRespository.delete(customer)
+    }
+
 }
