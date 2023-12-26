@@ -18,6 +18,8 @@ data class Credit(
     @Column(nullable = false)
     val dayFirstInstallment: LocalDate,
     @Column(nullable = false)
+    val numberOfInstallment: Int,
+    @Column(nullable = false)
     val status: Status = Status.IN_PROGRESS,
     @ManyToOne
     var customer: Customer? = null
