@@ -1,7 +1,6 @@
 package pagao.creditapi.dto.request
 
 import jakarta.validation.constraints.NotEmpty
-import pagao.creditapi.entity.Address
 import pagao.creditapi.entity.Customer
 import java.math.BigDecimal
 
@@ -13,13 +12,12 @@ data class CustomerDtoUpdate(
     @field:NotEmpty(message = "street input invalido") val street: String
 ) {
 
-    fun toEntity(): Customer = Customer(
-        firstName = this.firstName,
-        lastName = this.lastName,
-        income = this.income,
-        address = Address(
-            zipCode = this.zipCode,
-            street = this.street
-        )
-    )
+    fun toEntity(customer: Customer): Customer{
+        customer.firstName = this.firstName
+        customer.lastName = this.lastName
+        customer.income = this.income
+        customer.address.zipCode = this.zipCode
+        customer.address.street = this.street
+        return customer
+    }
 }
