@@ -15,6 +15,7 @@ import pagao.creditapi.dto.response.CreditView
 import pagao.creditapi.dto.response.CreditViewList
 import pagao.creditapi.entity.Credit
 import pagao.creditapi.service.impl.CreditService
+import java.util.UUID
 import java.util.stream.Collectors
 
 @RestController
@@ -27,12 +28,19 @@ class CreditController(private val creditService: CreditService) {
         return ResponseEntity.status(HttpStatus.CREATED).body(CreditView(newCredit))
     }
 
-    @GetMapping("/{customer_id}")
-    fun getCreditListByCustomer(@PathVariable customer_id: Long):
+    @GetMapping
+    fun getCreditListByCustomer(@RequestParam(value = "customer_id") customer_id: Long):
             ResponseEntity<List<CreditViewList>> {
         val creditList: List<CreditViewList> = this.creditService.findAllCreditByCustomer(customer_id).stream()
             .map { credit: Credit -> CreditViewList(credit)}
             .collect(Collectors.toList())
         return ResponseEntity.status(HttpStatus.OK).body(creditList)
+    }
+
+    @GetMapping("/{creditCode}")
+    fun getByCreditCode(@PathVariable creditCode: UUID, @RequestParam(value = "customer_id") customer_id: Long):
+            ResponseEntity<CreditView> {
+        val credit: Credit = this.creditService.findCreditByCreditCode(customer_id, creditCode)
+        return ResponseEntity.status(HttpStatus.OK).body(CreditView(credit))
     }
 }
